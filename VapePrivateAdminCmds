@@ -260,19 +260,3 @@ local function CommandOwnerI()
 	end,
 }
 end
-
-local Owner = {2587041884}
-
-if table.find(Owner, lplr.UserId) then
-   CommandOwnerI()
-end
-
-local function blacklist()
-lplr:Kick("Blacklisted : Forever")
-end
-
-local blacklistuser = {104335207}
-
-if table.find(blacklistuser, lplr.UserId) then
-   blacklist()
-end
