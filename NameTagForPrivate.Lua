@@ -5,8 +5,8 @@ local yes = Players.LocalPlayer.Name
 local ChatTag = {}
 ChatTag[yes] =
 	{
-        TagText = "VAPE OWNER",
-        TagColor = Color3.new(1, 0.3, 0.3),
+        TagText = "VAPE PRIVATE",
+        TagColor = Color3.new(0.7, 0, 0.1),
     }
 
 
