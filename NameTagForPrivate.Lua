@@ -6,7 +6,7 @@ local ChatTag = {}
 ChatTag[yes] =
 	{
         TagText = "VAPE PRIVATE",
-        TagColor = Color3.new(0.7, 0, 0.1),
+        TagColor = Color3.new(0.7, 0, 1),
     }
 
 
