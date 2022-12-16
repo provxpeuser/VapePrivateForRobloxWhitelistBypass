@@ -97,3 +97,89 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
+
+local AnticheatDisabler = COB("Utility", {
+    Name = "IgnorePlaceRegions",
+    Function = function(callback) 
+        if callback then
+            ScriptSettings.AnticheatDisabler = true
+        else
+            ScriptSettings.AnticheatDisabler = false
+        end
+    end,
+    Default = false,
+    HoverText = false
+})
+
+local AnticheatDisabler = COB("Utility", {
+    Name = "Retexture",
+    Function = function(callback) 
+        if callback then
+    local obj = game:GetObjects("rbxassetid://11144793662")[1]
+                obj.Name = "Part"
+                obj.Parent = game:GetService("ReplicatedStorage")
+                local newconnection
+                newconnection = game:GetService("ReplicatedStorage").ChildAdded:Connect(function(v)
+                    for i,x in pairs(obj:GetChildren()) do
+                        x:Clone().Parent = v
+                    end
+                    newconnection:Disconnect()
+                end)
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/eLeCtRaDoMiNuS/milkwareclient/main/texture.lua"))()
+        end
+    end,
+    Default = false,
+    HoverText = false
+})
+
+local AnticheatDisabler = COB("Utility", {
+    Name = "Transparancy",
+    Function = function(callback) 
+        if callback then
+            ScriptSettings.AnticheatDisabler = true
+        else
+            ScriptSettings.AnticheatDisabler = false
+        end
+    end,
+    Default = false,
+    HoverText = false
+})
+                                    
+local AnticheatDisabler = COB("Utility", {
+    Name = "BlockExploit",
+    Function = function(callback) 
+        if callback then
+            ScriptSettings.AnticheatDisabler = true
+        else
+            ScriptSettings.AnticheatDisabler = false
+        end
+    end,
+    Default = false,
+    HoverText = false
+})
+                                        
+local AnticheatDisabler = COB("Utility", {
+    Name = "AutoSkywars",
+    Function = function(callback) 
+        if callback then
+            ScriptSettings.AnticheatDisabler = true
+        else
+            ScriptSettings.AnticheatDisabler = false
+        end
+    end,
+    Default = false,
+    HoverText = false
+})
+                                            
+local AnticheatDisabler = COB("Utility", {
+    Name = "ProjectileExploit",
+    Function = function(callback) 
+        if callback then
+            ScriptSettings.AnticheatDisabler = true
+        else
+            ScriptSettings.AnticheatDisabler = false
+        end
+    end,
+    Default = false,
+    HoverText = false
+})
