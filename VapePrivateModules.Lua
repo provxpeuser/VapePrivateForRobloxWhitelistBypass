@@ -89,9 +89,8 @@ local AnticheatDisabler = COB("Utility", {
     Name = "AntiCrash",
     Function = function(callback) 
         if callback then
-            ScriptSettings.AnticheatDisabler = true
-        else
-            ScriptSettings.AnticheatDisabler = false
+		for i2,v2 in pairs(getconnections(bedwars["Client"]:Get("LightningStrike")["instance"].OnClientEvent)) do
+			v2:Disable()
         end
     end,
     Default = false,
