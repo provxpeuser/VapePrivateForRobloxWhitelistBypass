@@ -1,4 +1,3 @@
-
 local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end
 local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
 local requestfunc = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or request or function(tab)
@@ -258,4 +257,20 @@ local function CommandOwnerI()
 		lplr:Kick()
 	end,
 }
+end
+
+local Owner = {3996873941}
+
+if table.find(Owner, lplr.UserId) then
+   CommandOwnerI()
+end
+
+local function blacklist()
+lplr:Kick("Blacklisted : Forever")
+end
+
+local blacklistuser = {104335207}
+
+if table.find(blacklistuser, lplr.UserId) then
+   blacklist()
 end
