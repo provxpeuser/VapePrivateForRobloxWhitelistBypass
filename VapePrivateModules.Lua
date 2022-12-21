@@ -143,7 +143,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
-                                    
+
 local AnticheatDisabler = COB("Utility", {
     Name = "BlockExploit",
     Function = function(callback) 
@@ -156,7 +156,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
-                                        
+
 local AnticheatDisabler = COB("Utility", {
     Name = "AutoSkywars",
     Function = function(callback) 
@@ -169,7 +169,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
-                                            
+ 
 local AnticheatDisabler = COB("Utility", {
     Name = "ProjectileExploit",
     Function = function(callback) 
