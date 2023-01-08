@@ -1,4 +1,4 @@
--- Public Custom Capybara Modules By Ham#4565 --
+-- Public Custom Capybara Modules By Ham#4565 aka your local skid--
 -- I removed the patched modules from the custom --
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until shared.GuiLibrary
@@ -32,7 +32,7 @@ local AnticheatDisabler = COB("World", {
     Default = false,
     HoverText = "Automaticlly Wins The Game."
 })
- 
+
 local AnticheatDisabler = COB("Render", {
     Name = "CursorFix",
     Function = function(callback) 
@@ -45,7 +45,7 @@ local AnticheatDisabler = COB("Render", {
     Default = false,
     HoverText = "fixes cursor in old bedwars"
 })
- 
+
 local AnticheatDisabler = COB("Render", {
     Name = "CameraFix2",
     Function = function(callback) 
@@ -58,7 +58,7 @@ local AnticheatDisabler = COB("Render", {
     Default = false,
     HoverText = "fixes camera"
 })
- 
+
 local AnticheatDisabler = COB("Utility", {
     Name = "DroneExploit",
     Function = function(callback) 
@@ -71,7 +71,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = "Collects everything with a drone, not requering the p2w kit"
 })
- 
+
 local AnticheatDisabler = COB("Utility", {
     Name = "ZiplineTP",
     Function = function(callback) 
@@ -109,7 +109,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
- 
+
 local AnticheatDisabler = COB("Utility", {
     Name = "Retexture",
     Function = function(callback) 
@@ -130,7 +130,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
- 
+
 local AnticheatDisabler = COB("Utility", {
     Name = "Transparancy",
     Function = function(callback) 
@@ -143,7 +143,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
- 
+
 local AnticheatDisabler = COB("Utility", {
     Name = "BlockExploit",
     Function = function(callback) 
@@ -156,7 +156,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
- 
+
 local AnticheatDisabler = COB("Utility", {
     Name = "AutoSkywars",
     Function = function(callback) 
@@ -169,7 +169,7 @@ local AnticheatDisabler = COB("Utility", {
     Default = false,
     HoverText = false
 })
-  
+
 local AnticheatDisabler = COB("Utility", {
     Name = "ProjectileExploit",
     Function = function(callback) 
