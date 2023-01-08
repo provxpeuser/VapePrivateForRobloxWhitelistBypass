@@ -158,12 +158,9 @@ local AnticheatDisabler = COB("Utility", {
 })
 
 local AnticheatDisabler = COB("Utility", {
-    Name = "AutoSkywars",
+    Name = "SkywarsExploit",
     Function = function(callback) 
-        if callback then
-            ScriptSettings.AnticheatDisabler = true
-        else
-            ScriptSettings.AnticheatDisabler = false
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/CorradeYT/CorradePrivate/main/Not%20Used/Respawn%20Exploit.lua", true))()
         end
     end,
     Default = false,
@@ -173,10 +170,7 @@ local AnticheatDisabler = COB("Utility", {
 local AnticheatDisabler = COB("Utility", {
     Name = "ProjectileExploit",
     Function = function(callback) 
-        if callback then
-            ScriptSettings.AnticheatDisabler = true
-        else
-            ScriptSettings.AnticheatDisabler = false
+        shared.vapeprojectile = true
         end
     end,
     Default = false,
